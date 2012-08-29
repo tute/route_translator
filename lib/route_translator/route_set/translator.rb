@@ -105,7 +105,7 @@ module RouteTranslator
       def translate_path(path, locale)
         final_optional_segments = path.slice!(/(\(.+\))$/)
         new_path = path.split("/").map{|seg| translate_path_segment(seg, locale)}.join('/')
-        new_path = "/#{locale.downcase}#{new_path}" unless default_locale?(locale)
+        new_path = "/#{locale.downcase}#{new_path}" # unless default_locale?(locale) # TODO: MAke this option configurable
         new_path = "/" if new_path.blank?
         "#{new_path}#{final_optional_segments}"
       end
