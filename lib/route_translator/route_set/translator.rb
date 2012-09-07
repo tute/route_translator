@@ -16,10 +16,9 @@ module RouteTranslator
             translations_for(original_route).each do |translated_route_args|
               routes_to_create << translated_route_args
             end
-          else
-            route = untranslated_route original_route
-            routes_to_create << route
           end
+          route = untranslated_route original_route
+          routes_to_create << route
         end
 
         reset!
@@ -105,7 +104,7 @@ module RouteTranslator
       def translate_path(path, locale)
         final_optional_segments = path.slice!(/(\(.+\))$/)
         new_path = path.split("/").map{|seg| translate_path_segment(seg, locale)}.join('/')
-        new_path = "/#{locale.downcase}#{new_path}" # unless default_locale?(locale) # TODO: MAke this option configurable
+        new_path = "/#{locale.downcase}#{new_path}"
         new_path = "/" if new_path.blank?
         "#{new_path}#{final_optional_segments}"
       end
