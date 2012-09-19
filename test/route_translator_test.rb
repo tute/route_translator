@@ -364,6 +364,8 @@ class TranslateRoutesTest < ActionController::TestCase
     config_default_locale_settings 'en'
     config_generate_unlocalized_routes(true)
 
+    @routes.translate_from_file(File.expand_path('locales/routes.yml', File.dirname(__FILE__)))
+
     assert_routing '/en/people', :controller => 'people', :action => 'index', :locale => 'en'
     assert_routing '/people', :controller => 'people', :action => 'index'
   end
